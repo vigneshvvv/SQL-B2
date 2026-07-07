@@ -1,0 +1,29 @@
+USE sessionFive;
+
+CREATE TABLE users(
+id INT PRIMARY KEY,
+userName VARCHAR(50),
+passwordRef VARCHAR(50)
+)
+
+select * from users
+
+ALTER TABLE users ADD COLUMN user_id INT
+
+ALTER TABLE users RENAME COLUMN user_id TO userIds
+
+ALTER TABLE users MODIFY COLUMN userIds VARCHAR(100)
+
+ALTER TABLE users DROP COLUMN userIds
+
+select * from users
+
+
+
+
+
+
+
+
+
+
