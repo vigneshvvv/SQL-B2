@@ -18,6 +18,53 @@ ALTER TABLE users DROP COLUMN userIds
 
 select * from users
 
+INSERT into users VALUES (1, "Vignesh", "Vignesh@123")
+
+INSERT into users VALUES (2, "Suresh", "Suresh@123"),
+(3, "Devanathan", "DN@121"),
+(4, "Abdul", "Abdul123#")
+
+INSERT into users (id, userName) VALUES (5, "Revanth")
+
+
+select userName, passwordRef from users
+
+select * from users where userName = "Abdul"
+
+CREATE TABLE studentRecords(
+rollNo INT PRIMARY KEY,
+studentName VARCHAR(30) NOT NULL,
+course VARCHAR(30),
+age INT,
+yearOfStudy INT
+
+)
+
+INSERT INTO studentRecords VALUES (1, "Rajesh", "CSE", 18, 2),
+(2, "Suresh", "EEE", 20, 3),
+(3, "Subhash", "EEE", 18, 2)
+
+select * from studentRecords
+
+select * from studentRecords where course = "EEE" AND yearOfStudy = 3
+
+select * from studentRecords where course = "EEE" OR yearOfStudy = 3
+
+select * from studentRecords where course = "EEE" and yearOfStudy = 3 and age > 20
+
+select * from studentRecords where course in ("EEE", "CSE")
+
+
+CREATE TABLE sample (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    userName VARCHAR(30)
+
+)
+
+INSERT INTO sample (userName) VALUES ("Suresh")
+select * from sample
+
+
 
 
 
