@@ -64,6 +64,43 @@ CREATE TABLE sample (
 INSERT INTO sample (userName) VALUES ("Suresh")
 select * from sample
 
+CREATE TABLE EmployeeDetails(
+emp_id INT AUTO_INCREMENT PRIMARY KEY,
+emp_name VARCHAR(50) NOT NULL,
+department VARCHAR(30) NOT NULL,
+salary DECIMAL(10, 2) NOT NULL
+) 
+
+INSERT INTO EmployeeDetails (emp_name,department,salary) VALUES
+("Ashok", "DEV", 40000),
+("Devanathan", "TESTING", 30000),
+("Revanth", "CLOUD", 60000),
+("Vignesh", "DEV", 50000)
+
+select * from EmployeeDetails
+
+select count(*) from EmployeeDetails
+
+select count(*) as total_employees from EmployeeDetails where department = "DEV"
+
+select MAX(salary) as max_salary from EmployeeDetails where department = "DEV"
+
+select MIN(salary) as max_salary from EmployeeDetails
+
+select * from EmployeeDetails where salary = 60000
+
+select * from EmployeeDetails where salary = (select MAX(salary) from EmployeeDetails)
+
+select SUM(salary) from EmployeeDetails where department = "DEV"
+
+-- DECIMAL (1,1) - 0.0-0.9
+-- DECIMAL (2,1) - 0.0-9.9
+-- DECIMAL(3,1) - 00.0 -99.9
+-- DECIMAL (4,2) - 00.00 - 99.99
+-- DECIMAL(5,2) - 999.99
+
+select department, count(*) as total_employees from EmployeeDetails group by department
+
 
 
 
