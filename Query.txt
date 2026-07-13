@@ -101,10 +101,80 @@ select SUM(salary) from EmployeeDetails where department = "DEV"
 
 select department, count(*) as total_employees from EmployeeDetails group by department
 
+select * from EmployeeDetails order by salary ASC
+select * from EmployeeDetails order by salary
+
+select department, SUM(salary) as total_salary from EmployeeDetails 
+group by department HAVING total_salary > 50000 order by total_salary DESC
 
 
 
+CREATE TABLE Customers(
+customer_id INT PRIMARY KEY AUTO_INCREMENT,
+customer_name VARCHAR(50),
+city VARCHAR(20)
+)
 
+CREATE TABLE Products(
+product_id INT PRIMARY KEY AUTO_INCREMENT,
+product_name VARCHAR(40),
+price DECIMAL(10,2)
+)
+
+CREATE TABLE Orders(
+order_id INT PRIMARY KEY AUTO_INCREMENT,
+customer_id INT,
+product_id INT,
+quantity INT,
+FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+FOREIGN KEY (product_id) REFERENCES Products(product_id)
+)
+
+INSERT INTO Customers (customer_name, city ) values ("Vignesh", "chennai"),
+("Deva", "Madurai"),
+("Sathish", "Madurai"),
+("Abdul", "Banglore"),
+("Revanth", "Delhi")
+
+select * from Customers
+
+INSERT INTO Products (product_name, price) VALUES ("Toggle", 500),
+("Laptop", 60000),
+("Mouse", 1000),
+("KeyBoard", 1500)
+
+select * from Products
+
+INSERT INTO Orders(customer_id, product_id, quantity) VALUES 
+(1, 1, 1),
+(1,2,2),
+(2,4, 1),
+(3,3,2)
+
+select * from Orders
+
+
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c 
+INNER JOIN Orders o ON c.customer_id = o.customer_id
+INNER JOIN Products p ON o.product_id = p.product_id
+
+
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id 
+
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c
+RIGHT JOIN Orders o ON c.customer_id = o.customer_id
+RIGHT JOIN Products p ON o.product_id = p.product_id 
+
+
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id 
+UNION
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c
+RIGHT JOIN Orders o ON c.customer_id = o.customer_id
+RIGHT JOIN Products p ON o.product_id = p.product_id 
 
 
 
