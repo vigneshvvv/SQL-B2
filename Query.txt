@@ -176,6 +176,117 @@ SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customer
 RIGHT JOIN Orders o ON c.customer_id = o.customer_id
 RIGHT JOIN Products p ON o.product_id = p.product_id 
 
+CREATE TABLE Employee(
+emp_id int PRIMARY KEY,
+emp_name VARCHAR(50),
+manager_id INT
+)
+
+CREATE TABLE Employee_N(
+emp_id int PRIMARY KEY,
+emp_name VARCHAR(50),
+manager_id INT
+)
+
+INSERT INTO Employee_N VALUES (1, "Vignesh", 3),
+(2, "Deva", 3),
+(3, "Sathish", NULL)
+
+select * from Employee
+
+select e.emp_name as EmpName, m.emp_name as Manager 
+from Employee e LEFT JOIN Employee m
+ON e.manager_id = m.emp_id where m.emp_name = "Sathish"
+
+
+SELECT c.customer_name, c.city, p.product_name, p.price,o.quantity from Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id where o.quantity > 1
+and p.price > 20000
+
+select c.customer_name , SUM(o.quantity) as total_quantity from Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id
+group by c.customer_name
+
+select c.customer_name, SUM(o.quantity*p.price) as total_amount from Customers c 
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id
+group by c.customer_id HAVING total_amount > 30000
+
+select c.customer_name, SUM(o.quantity*p.price) as total_amount from Customers c 
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id
+group by c.customer_id order by total_amount DESC
+
+select c.customer_name, SUM(o.quantity*p.price) as total_amount from Customers c 
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+LEFT JOIN Products p ON o.product_id = p.product_id
+group by c.customer_id order by total_amount DESC LIMIT 1
+
+SELECT p.product_name, SUM(o.quantity) as total_sold from
+Products p JOIN Orders o ON p.product_id = o.product_id group by p.product_name  
+
+select c.customer_name FROM Customers c LEFT JOIN Orders o 
+ON c.customer_id = o.customer_id where o.order_id is NULL
+
+
+select * from Customers
+
+select * from Customers LIMIT 2 OFFSET 2
+
+select * from Customers LIMIT 10 OFFSET 0
+select * from Customers LIMIT 10 OFFSET 10
+select * from Customers LIMIT 10 OFFSET 20
+CREATE TABLE product_deliveryStatus(
+id INT PRIMARY KEY,
+product_name VARCHAR(50),
+order_date DATE,
+delivery_expected TIME,
+updated_timeStamp DATETIME
+)
+insert into product_deliveryStatus VALUES (4, "Battery", "2026-07-08", "10:10:00", "2026-07-08 10:10:00")
+
+select * from product_deliveryStatus
+
+insert into product_deliveryStatus VALUES (5, "BackCover", CURDATE(), CURTIME(), NOW()),
+(3, "Charger", CURDATE(), CURTIME(), NOW())
+
+select DATE_FORMAT(order_date, "%d/%m/%Y") from product_deliveryStatus
+
+select DATE_FORMAT(updated_timeStamp, "%d/%m/%Y %H: %i: %s") from product_deliveryStatus
+
+select * from product_deliveryStatus where order_date >= CURDATE() - INTERVAL 10 DAY
+
+
+
+select * from product_deliveryStatus 
+where order_date >= NOW() - INTERVAL 2 YEAR 
+
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= CURDATE() - INTERVAL 15 MINUTE 
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= NOW() - INTERVAL '2 5' DAY_HOUR
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= NOW() - INTERVAL '3 10:20' DAY_MINUTE
+
+
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= NOW() - INTERVAL '3 10:20:30' DAY_SECOND
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= NOW() - INTERVAL '10:20:30' HOUR_SECOND
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= NOW() - INTERVAL '10:20' HOUR_MINUTE
+
+select * from product_deliveryStatus 
+where updated_timeStamp >= CURDATE() - INTERVAL '1-6' YEAR_MONTH
+
 
 
 
