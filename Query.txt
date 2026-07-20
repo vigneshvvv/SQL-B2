@@ -287,6 +287,95 @@ where updated_timeStamp >= NOW() - INTERVAL '10:20' HOUR_MINUTE
 select * from product_deliveryStatus 
 where updated_timeStamp >= CURDATE() - INTERVAL '1-6' YEAR_MONTH
 
+select * from Products
+
+select * from Products where product_name LIKE 'm%'
+
+select * from Products where product_name LIKE '_o%'
+
+select * from Products where product_name LIKE '%ou%'
+
+select UPPER(product_name) from Products
+
+select LOWER(product_name) from Products
+
+select SUBSTRING(product_name, 3) from Products
+
+select CONCAT( 
+UPPER(LEFT(product_name, 1)),
+LOWER(SUBSTRING(product_name, 2))
+) as productName from Products
+
+CREATE TABLE product_Info (
+product_id int PRIMARY KEY,
+product_name VARCHAR(50),
+price INT
+)
+
+DELIMITER $$
+
+CREATE TRIGGER set_priceTo_default
+before INSERT on product_Info
+FOR EACH ROW
+BEGIN
+	if NEW.price is NULL THEN 
+     SET NEW.price = 299;
+ end if;
+END $$
+DELIMITER ;
+
+CREATE TRIGGER set_price_default
+BEFORE INSERT ON product_Info
+FOR each row
+SET NEW.price = ifnull(NEW.price, 299)
+
+insert into product_Info (product_id, product_name) VALUES (1, "RAM")
+select * from product_Info
+
+
+CREATE TRIGGER update_product_price
+before update on product_Info
+for each row
+set NEW.price = IFNULL(NEW.price,499);
+
+UPDATE product_Info SET price = NULL where product_id = 1
+
+
+CREATE TABLE product_log (
+log_id INT AUTO_INCREMENT PRIMARY KEY,
+product_id INT,
+action VARCHAR(20),
+message VARCHAR(40),
+log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+DELIMITER $$
+
+CREATE TRIGGER trg_after_delete
+AFTER DELETE 
+ON product_Info
+FOR EACH ROW 
+BEGIN
+	INSERT INTO product_log(product_id, action, message)
+    VALUES(
+    OLD.product_id, 'DELETE', concat('product', OLD.product_name, 'deleted')
+    );
+END $$
+
+DELIMITER ;
+
+DELETE FROM product_Info where product_id = 1
+
+select * from product_log
+
+
+
+
+
+
+
+
+
 
 
 
