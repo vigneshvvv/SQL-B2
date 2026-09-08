@@ -1,0 +1,38 @@
+USE SessionSix
+
+CREATE TABLE userDetails(
+id INT PRIMARY KEY,
+studentName VARCHAR(40),
+department VARCHAR(20),
+marks int
+)	
+
+select * from userDetails
+
+ALTER TABLE userDetails ADD COLUMN  student_id INT
+
+ALTER TABLE userDetails RENAME COLUMN student_id TO registrationId
+
+ALTER TABLE userDetails MODIFY COLUMN registrationId VARCHAR(20)
+
+ALTER TABLE userDetails DROP COLUMN registrationId
+
+
+INSERT INTO userDetails VALUES(1, 'vignesh', 'ECE', 490)
+
+INSERT INTO userDetails(id, department, studentName, marks ) VALUES (2, "EEE","Revanth", 450 )
+
+INSERT INTO userDetails VALUES (3,"Deva", "IT", 400),
+(4,  "Abdul","MECH", 420)
+
+select * from userDetails
+
+delete from userDetails where id = 4
+
+UPDATE userDetails SET marks = 450 where id = 4
+
+select studentName, department from userDetails
+
+
+
+
