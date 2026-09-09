@@ -33,6 +33,38 @@ UPDATE userDetails SET marks = 450 where id = 4
 
 select studentName, department from userDetails
 
+select *  from userDetails where marks > 400
+select * from userDetails where marks > 400 and department = 'EEE' and studentName = 'Revanth'
+
+select * from userDetails where marks > 400 OR department = 'EEE'
+
+select * from userDetails where department in ('EEE', 'ECE')
+
+insert into userDetails (id,studentName) VALUES (5, "Anuj")
+
+-- DECIMAL(5,2) -> 999.99
+-- DECIMAL(6,2) -> 9999.99
+-- DECIMAL(8,2) -> 99999.99
+-- DEIMAL(3,2) -> 10.00
+CREATE TABLE Employees(
+emp_id INT AUTO_INCREMENT PRIMARY KEY,
+emp_name VARCHAR(50) NOT NULL,
+department VARCHAR(40) NOT NULL,
+salary DECIMAL(10,2) NOT NULL
+
+)
+select * from Employees
+
+INSERT INTO Employees (emp_name,department,salary) VALUES ('Devanathan', 'DEV', 60000.00),
+('Revanth', 'HR', 40000),
+('Guru', 'Clooud', 70000)
+
+
+
+
+
+
+
 
 
 
