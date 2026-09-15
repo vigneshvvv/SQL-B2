@@ -1,44 +1,47 @@
 USE SessionSix
 
-CREATE TABLE userDetails(
+CREATE TABLE userDetailsNew(
 id INT PRIMARY KEY,
 studentName VARCHAR(40),
 department VARCHAR(20),
 marks int
 )	
 
-select * from userDetails
+select * from userDetailsNew
 
-ALTER TABLE userDetails ADD COLUMN  student_id INT
+ALTER TABLE userDetailsNew ADD COLUMN  student_id INT
 
-ALTER TABLE userDetails RENAME COLUMN student_id TO registrationId
+ALTER TABLE userDetailsNew RENAME COLUMN student_id TO registrationId
 
-ALTER TABLE userDetails MODIFY COLUMN registrationId VARCHAR(20)
+ALTER TABLE userDetailsNew MODIFY COLUMN registrationId VARCHAR(20)
 
-ALTER TABLE userDetails DROP COLUMN registrationId
+ALTER TABLE userDetailsNew DROP COLUMN registrationId
 
 
-INSERT INTO userDetails VALUES(1, 'vignesh', 'ECE', 490)
+INSERT INTO userDetailsNew VALUES(1, 'vignesh', 'ECE', 490)
 
-INSERT INTO userDetails(id, department, studentName, marks ) VALUES (2, "EEE","Revanth", 450 )
+select * from userDetailsNew
 
-INSERT INTO userDetails VALUES (3,"Deva", "IT", 400),
+INSERT INTO userDetailsNew(id, department, studentName, marks ) VALUES (2, "EEE","Revanth", 450 )
+
+INSERT INTO userDetailsNew VALUES (3,"Deva", "IT", 400),
 (4,  "Abdul","MECH", 420)
 
-select * from userDetails
+select * from userDetailsNew
 
-delete from userDetails where id = 4
+delete from userDetailsNew where id = 4
 
-UPDATE userDetails SET marks = 450 where id = 4
+UPDATE userDetailsNew SET marks = 450 where id = 3
 
 select studentName, department from userDetails
 
-select *  from userDetails where marks > 400
-select * from userDetails where marks > 400 and department = 'EEE' and studentName = 'Revanth'
+select *  from userDetailsNew where marks > 400
+select * from userDetailsNew where marks > 400 and department = 'EEE' and studentName = 'Revanth'
 
 select * from userDetails where marks > 400 OR department = 'EEE'
+select * from userDetails where department = 'ECE' and department = 'EEE'
 
-select * from userDetails where department in ('EEE', 'ECE')
+select * from userDetailsNew where department in ('EEE', 'ECE')
 
 insert into userDetails (id,studentName) VALUES (5, "Anuj")
 
@@ -58,6 +61,78 @@ select * from Employees
 INSERT INTO Employees (emp_name,department,salary) VALUES ('Devanathan', 'DEV', 60000.00),
 ('Revanth', 'HR', 40000),
 ('Guru', 'Clooud', 70000)
+
+select MAX(salary) from  Employees
+
+select * from Employees where salary = 70000
+
+select * from Employees where salary = (select MAX(salary) from  Employees)
+
+select MIN(salary) from Employees 
+
+select SUM(salary) as totalSalary from Employees 
+
+select AVG(salary) as averageSalary from Employees
+
+select COUNT(*) as noOFEmployees from Employees where department = 'DEV'
+
+
+CREATE TABLE EmployeesWithPlace(
+emp_id INT AUTO_INCREMENT PRIMARY KEY,
+emp_name VARCHAR(50) NOT NULL,
+department VARCHAR(40) NOT NULL,
+salary DECIMAL(10,2) NOT NULL,
+place VARCHAR(20)
+)
+
+
+INSERT INTO EmployeesWithPlace (emp_name,department,salary, place) 
+VALUES ('Devanathan', 'DEV', 60000.00, 'Chennai'),
+('Revanth', 'HR', 40000, 'Madurai'),
+('Guru', 'Clooud', 70000, 'Chennai'),
+('Jim', 'Dev', 80000, 'Delhi')
+
+select * from EmployeesWithPlace
+
+select place, count(*) from EmployeesWithPlace group by place
+
+select department, count(*) as noOfDep from EmployeesWithPlace group by department HAVING noOfDep > 1
+
+select * from EmployeesWithPlace ORDER BY salary ASC
+
+select * from EmployeesWithPlace ORDER BY salary DESC
+
+CREATE TABLE OrderDetails(
+order_id INT PRIMARY KEY,
+order_name VARCHAR(30) NOT NULL,
+quantity INT DEFAULT 1
+)
+
+select * from OrderDetails
+
+INSERT INTO OrderDetails (order_id, order_name) VALUES (1, "Electronics")
+
+CREATE TABLE Customer(
+customer_id INT PRIMARY KEY,
+customer_name VARCHAR(30),
+city VARCHAR(20)
+)
+CREATE TABLE ProductData(
+product_id INT PRIMARY KEY,
+product_name VARCHAR(20),
+price DECIMAL(10,2)
+)
+CREATE TABLE OrderData(
+order_id INT PRIMARY KEY,
+customer_id INT,
+product_id INT,
+quantity INT,
+FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
+FOREIGN KEY(product_id) REFERENCES ProductData(product_id)
+)
+
+
+
 
 
 
