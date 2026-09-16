@@ -131,8 +131,49 @@ FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
 FOREIGN KEY(product_id) REFERENCES ProductData(product_id)
 )
 
+INSERT INTO Customer VALUES
+(1, "Rahul", "Chennai"),(2, "Deva", "Chennai"),
+(3, "Vignesh", "Madurai"),(4, "Abdul", "Delhi")
+
+INSERT INTO ProductData VALUES 
+(101, "Earpod", 1000),
+(102, "Mobile", 20000),
+(103, "Laptop", 50000),
+(104, "Toggle", 500)
+
+INSERT INTO ProductData values 
+(105, "KeyBoard", 700)
 
 
+
+INSERT INTO OrderData VALUES 
+(1, 1, 103, 1),
+(2, 1, 104, 2),
+(3, 2, 101, 1),
+(4, 3, 102, 1)
+
+select * from OrderData
+
+select o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity from OrderData o  
+INNER JOIN  Customer c  ON o.customer_id = c.customer_id
+INNER JOIN ProductData p ON o.product_id = p.product_id
+
+select  o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity from Customer c
+LEFT JOIN OrderData o ON c.customer_id = o.customer_id
+LEFT JOIN ProductData p ON o.product_id = p.product_id
+
+
+select  o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity  from Customer c
+RIGHT JOIN OrderData o ON c.customer_id = o.customer_id
+RIGHT JOIN ProductData p ON o.product_id = p.product_id
+
+select  o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity from Customer c
+LEFT JOIN OrderData o ON c.customer_id = o.customer_id
+LEFT JOIN ProductData p ON o.product_id = p.product_id
+UNION
+select  o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity  from Customer c
+RIGHT JOIN OrderData o ON c.customer_id = o.customer_id
+RIGHT JOIN ProductData p ON o.product_id = p.product_id
 
 
 
