@@ -175,6 +175,39 @@ select  o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity 
 RIGHT JOIN OrderData o ON c.customer_id = o.customer_id
 RIGHT JOIN ProductData p ON o.product_id = p.product_id
 
+select o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity from OrderData o  
+INNER JOIN  Customer c  ON o.customer_id = c.customer_id
+INNER JOIN ProductData p ON o.product_id = p.product_id where c.customer_name = 'Vignesh'
+
+select o.order_id, c.customer_name, c.city,p.product_name, p.price, o.quantity from OrderData o  
+INNER JOIN  Customer c  ON o.customer_id = c.customer_id
+INNER JOIN ProductData p ON o.product_id = p.product_id where o.quantity >= 1 and p.price >= 20000
+
+select c.customer_name, SUM(o.quantity) as total_quantity  from OrderData o 
+JOIN Customer c ON o.customer_id = c.customer_id GROUP BY c.customer_name
+
+select c.customer_name, SUM(o.quantity) as total_quantity  from Customer c 
+LEFT JOIN OrderData o ON o.customer_id = c.customer_id GROUP BY c.customer_name
+
+
+select c.customer_name, COUNT(o.order_id) as total_order from OrderData o 
+join Customer c ON o.customer_id = c.customer_id 
+group by c.customer_name 
+
+select c.customer_name, SUM(o.quantity * p.price) as total_price FROM OrderData o
+JOIN Customer c ON o.customer_id = c.customer_id 
+JOIN ProductData p ON o.product_id = p.product_id
+group by  c.customer_name
+
+select c.customer_name, SUM(o.quantity * p.price) as total_price FROM OrderData o
+JOIN Customer c ON o.customer_id = c.customer_id 
+JOIN ProductData p ON o.product_id = p.product_id
+group by  c.customer_name order by total_price DESC
+
+select c.customer_name, SUM(o.quantity * p.price) as total_price FROM OrderData o
+JOIN Customer c ON o.customer_id = c.customer_id 
+JOIN ProductData p ON o.product_id = p.product_id
+group by  c.customer_name HAVING total_price > 50000
 
 
 
