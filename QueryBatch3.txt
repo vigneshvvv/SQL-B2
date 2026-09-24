@@ -204,6 +204,8 @@ JOIN Customer c ON o.customer_id = c.customer_id
 JOIN ProductData p ON o.product_id = p.product_id
 group by  c.customer_name order by total_price DESC
 
+select * from Customer c where EXISTS(select 1 from OrderData o where o.customer_id = c.customer_id)
+
 select c.customer_name, SUM(o.quantity * p.price) as total_price FROM OrderData o
 JOIN Customer c ON o.customer_id = c.customer_id 
 JOIN ProductData p ON o.product_id = p.product_id
@@ -336,6 +338,44 @@ Appointment a ON d.doctor_id = a.doctor_id
 GROUP BY d.doctor_id, d.doctor_name
 ORDER BY total_appointments DESC
 LIMIT 1
+
+select * from Employees
+
+
+select * from Employees where salary > (select AVG(salary) from Employees)
+
+select * from Employees where salary = (select MAX(salary) from Employees)
+
+select * from Employees where department IN (
+select department from Employees GROUP BY department HAVING count(*) > 1
+)
+
+select * from Employees where department NOT IN(
+select department from Employees where salary >= 70000
+
+)
+
+select * from Employees where salary > ANY(
+select salary from Employees where department = 'HR'
+)
+
+select * from Employees where salary > ALL (
+select salary FROM Employees where department = 'TESTING'
+)
+
+select * FROM (
+select department, AVG(salary) AS avg_salary
+FROM Employees GROUP BY department
+) AS Temp where avg_salary > 50000
+
+select emp_name, salary,
+(select AVG(salary) FROM Employees) as average_salary FROM Employees
+
+select * from Employees e 
+where salary > (
+select AVG(e2.salary) FROM Employees e2 where e2.department = e.department
+)
+
 
 
 
