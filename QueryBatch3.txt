@@ -376,6 +376,71 @@ where salary > (
 select AVG(e2.salary) FROM Employees e2 where e2.department = e.department
 )
 
+select * from Employees
+
+select emp_name,salary,AVG(salary) OVER() AS avg_salary
+FROM Employees
+
+
+select emp_name, department, salary, AVG(salary) 
+over( PARTITION BY department) as dept_avg
+FROM Employees
+
+select emp_name, department,ROW_NUMBER() OVER(ORDER BY salary DESC) as row_num
+FROM Employees
+
+select emp_name, department,salary, ROW_NUMBER() 
+OVER(PARTITION BY department ORDER BY salary DESC)
+as row_num FROM Employees
+
+select emp_name,salary, RANK() OVER(ORDER BY salary DESC) as rnk
+FROM Employees
+
+select * FROM(
+select emp_name,salary, RANK() OVER(ORDER BY salary DESC) as rnk
+FROM Employees
+) t where rnk = 2
+
+select emp_name,department, salary, ROW_NUMBER() 
+OVER(PARTITION BY department ORDER BY salary DESC)
+as rn FROM Employees
+
+select * FROM (
+select emp_name,department, salary, ROW_NUMBER() 
+OVER(PARTITION BY department ORDER BY salary DESC)
+as rn FROM Employees
+) t where rn = 1;
+
+
+select emp_name, department, salary, SUM(salary) 
+OVER(PARTITION BY department) as department_total
+from Employees
+
+
+CREATE TABLE salesReport(
+id INT PRIMARY KEY,
+monthData VARCHAR(30),
+sales INT
+)
+
+INSERT INTO salesReport VALUES
+(1, "JANUARY", 10000),
+(2, "February", 12000),
+(3, "March", 15000),
+(4, "April", 13000),
+(5, "May", 18000)
+
+select * from salesReport
+
+
+select monthData, sales, LAG(sales) OVER(ORDER BY id)as previous_month_sales
+FROM salesReport
+
+select monthData, sales, LEAD(sales) OVER(ORDER BY id)as previous_month_sales
+FROM salesReport
+
+
+
 
 
 
