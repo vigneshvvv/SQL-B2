@@ -439,7 +439,75 @@ FROM salesReport
 select monthData, sales, LEAD(sales) OVER(ORDER BY id)as previous_month_sales
 FROM salesReport
 
+CREATE TABLE EmployeeInfo (
+emp_id INT PRIMARY KEY,
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+email VARCHAR(30),
+phone VARCHAR(40),
+city VARCHAR(30),
+job_title VARCHAR(100)
 
+)
+
+INSERT INTO EmployeeInfo VALUES
+(1, "ARUN", "kumar", "arun@gmail.com", "241232131", "Chennai", "Software Engineer"),
+(2, "Vignesh", "kumar", "vignesh@gmail.com", "241232131", "Madurai", "Software Developer"),
+(3, "Nishanth", "Patil", "natil@gmail.com", "241232131", "Chennai", "Software Tester")
+
+
+select first_name, last_name, CONCAT(first_name, " ", last_name) as full_name 
+FROM EmployeeInfo
+
+select CONCAT_WS('-', first_name, last_name) as employee_details
+from EmployeeInfo
+
+select UPPER(first_name) as upperCase_name
+FROM EmployeeInfo
+
+select LOWER(first_name) as upperCase_name
+FROM EmployeeInfo
+
+select first_name, LENGTH(first_name) as name_length
+FROM EmployeeInfo
+
+select TRIM('   Arun Kumar   ');
+select LTRIM('   Arun Kumar   ');
+select RTRIM('   Arun Kumar   ');
+
+select first_name, substring(first_name, 1, 3) as short_name
+from EmployeeInfo
+
+select first_name, substring(first_name, -2) as short_name
+from EmployeeInfo
+
+select first_name, LEFT(first_name, 2) as first_twoChar
+from EmployeeInfo
+
+select email, INSTR(email, '@')  as at_position
+FROM EmployeeInfo
+
+select email, LOCATE('@', email) as at_position
+from EmployeeInfo
+
+select email, SUBSTRING(
+email, 1, LOCATE('@', email) -1
+) as userName
+from EmployeeInfo
+
+select email, REPLACE(
+email, 'gmail.com', 'company.com'
+)as new_email FROM EmployeeInfo
+
+select REPEAT('Hi', 3)
+
+select emp_id, LPAD(emp_id, 5, '0') AS formatted_id
+from EmployeeInfo
+
+select emp_id, RPAD(emp_id, 5, '0') AS formatted_id
+from EmployeeInfo
+
+select FIND_IN_SET('Python', 'java,Python,c,React');
 
 
 
