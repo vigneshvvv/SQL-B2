@@ -509,10 +509,43 @@ from EmployeeInfo
 
 select FIND_IN_SET('Python', 'java,Python,c,React');
 
+CREATE table product_orderInfo(
+id int PRIMARY KEY,
+customer_name VARCHAR(30),
+order_date DATE,
+delivery_time TIME,
+updated_timestamp DATETIME
 
+)
 
+insert into product_orderInfo values (1, "Arjun", '2026-05-18',
+'10:10:00', '2026-05-18 10:10:00')
 
+insert into product_orderInfo values(2, 'Sathish', CURDATE(), CURTIME(), NOW())
 
+select * from product_orderInfo
 
+select * from product_orderInfo where order_date='2026-05-18'
+
+select YEAR(order_date) from product_orderInfo
+select MONTH(order_date) from product_orderInfo
+select DAY(order_date) from product_orderInfo
+
+select * from product_orderInfo where order_date >= CURDATE()
+
+select DATE_FORMAT(order_date, '%d-%m-%y') from product_orderInfo
+select DATE_FORMAT(order_date, '%d/%m/%y') from product_orderInfo
+
+select DATE_FORMAT(updated_timestamp, '%d-%m-%y %H:%i:%s') from product_orderInfo
+
+select * from product_orderInfo where customer_name LIKE 's%'
+
+select * from product_orderInfo where customer_name LIKE '%un%'
+
+select * from product_orderInfo where customer_name LIKE '_r%'
+
+select * from product_orderInfo where order_date >= CURDATE()- INTERVAL 7 DAY
+
+select * from product_orderInfo where order_date >= CURDATE()- INTERVAL 7 MONTH
 
 
