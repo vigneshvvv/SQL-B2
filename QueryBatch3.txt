@@ -548,4 +548,68 @@ select * from product_orderInfo where order_date >= CURDATE()- INTERVAL 7 DAY
 
 select * from product_orderInfo where order_date >= CURDATE()- INTERVAL 7 MONTH
 
+select * from EmployeeInfo
+
+select * from Employees
+
+WITH averageSalaryData as (select AVG(salary) as average_salary from Employees)
+select * from Employees where salary > (select average_salary from  averageSalaryData)
+
+WITH high_salary as (select * from Employees where salary > 50000)
+select * from high_salary
+
+select department, AVG(salary) as avg_salary
+FROM Employees GROUP by department HAVING AVG(salary) > 50000
+
+WITH department_salary as (
+select department, AVG(salary) as avg_salary FROM  Employees GROUP by department
+)
+select * from department_salary where avg_salary > 50000
+
+
+with appointment_details as (
+select pr.prescription_id, pr.medicine,a.appointment_id,a.appointment_date, p.patient_name, d.doctor_name from 
+Prescription pr 
+RIGHT JOIN Appointment a  ON 
+pr.appointment_id = a.appointment_id
+LEFT JOIN Patient p ON a.patient_id = p.patient_id
+LEFT JOIN Doctor d ON a.doctor_id = d.doctor_id
+)
+select * from appointment_details where medicine = 'Aspirin'
+
+WITH doctor_patients as (
+select d.doctor_id, d.doctor_name, p.patient_id, p.patient_name
+ from Appointment a JOIN Doctor d On a.doctor_id = d.doctor_id
+ JOIN Patient p ON a.patient_id = p.patient_id
+)
+select doctor_id, doctor_name, COUNT(DISTINCT patient_id) as patient_count
+from doctor_patients GROUP BY doctor_id, doctor_name
+
+
+WITH doctor_appointments AS (
+select d.doctor_id, d.doctor_name, COUNT(a.appointment_id) as appointment_count
+from Doctor d 
+JOIN Appointment a ON d.doctor_id = a.doctor_id
+GROUP BY d.doctor_id,d.doctor_name
+),
+ranked_doctors as (
+select doctor_id, doctor_name, appointment_count, RANK() OVER (
+order by appointment_count DESC
+) as doctor_rank
+from doctor_appointments
+)
+select * from ranked_doctors where doctor_rank = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
 
