@@ -600,13 +600,54 @@ from doctor_appointments
 )
 select * from ranked_doctors where doctor_rank = 1
 
+select * from Patient
+
+CREATE INDEX id_patient_name on Patient(patient_name)
+
+select * from Doctor
+
+
+DELIMITER $$
+CREATE procedure doctorFilteration()
+BEGIN
+  select * from Doctor where doctor_name = 'Vignesh';
+END $$
+
+DELIMITER ;
+
+CALL doctorFilteration();
+
+SHOW procedure status
+
+DROP PROCEDURE IF exists doctorFilteration
+
+select * from userDetailsNew
+
+DELIMITER $$
+
+CREATE TRIGGER set_markdetails
+before insert on userDetailsNew
+FOR EACH ROW 
+BEGIN
+	if New.marks is NULL THEN
+    SET NEW.marks = 0;
+end if;
+END $$
+
+DELIMITER ;
+
+INSERT INTO userDetailsNew (id, studentName, department) VALUES(4, 'Giri', 'ECE')
+
+select * from userDetailsNew
 
 
 
+CREATE TRIGGER update_user
+before update on userDetailsNew
+for each row
+set NEW.marks = IFNULL(NEW.marks, 100)
 
-
-
-
+UPDATE userDetailsNew SET marks = NULL where id = 4
 
 
 
